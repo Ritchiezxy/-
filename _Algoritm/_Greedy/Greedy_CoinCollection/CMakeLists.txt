@@ -1,0 +1,18 @@
+﻿
+#以目录名为当前工程名
+string(REGEX REPLACE ".*/(.*)" "\\1" CURRENT_FOLDER ${CMAKE_CURRENT_SOURCE_DIR})
+set(CURRENT_PROJ_NAME ${CURRENT_FOLDER})
+
+
+#源码文件
+file(GLOB Files *.cpp *.ui *.c *.h *.qrc)
+#生成库
+add_executable(${CURRENT_PROJ_NAME} ${Files})
+
+
+set_target_properties(${CURRENT_PROJ_NAME} PROPERTIES FOLDER ${BIG_MODULE_NAME}/${MODULE_NAME})
+#安装
+file(INSTALL ${OtherFiles} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/RelWithDebInfo)
+INSTALL(TARGETS ${CURRENT_PROJ_NAME}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  )
